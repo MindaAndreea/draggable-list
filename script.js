@@ -16,18 +16,24 @@ const listItems = [];
 let index;
 
 function createList() {
-  [...richestRestaurants].forEach((elem, index) => {
-    const item = document.createElement("li");
+  orderedList.innerHTML = "";
 
-    item.setAttribute("data-index", index);
+  [...richestRestaurants]
+    .map((a) => ({ value: a, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map((a) => a.value)
+    .forEach((elem, index) => {
+      const item = document.createElement("li");
 
-    item.innerHTML = `<div class="item-container"><span class="number">${
-      index + 1
-    }.</span><div class="draggable" draggable="true"><p class="first-name">${elem}</p><i class="fa-solid fa-grip-lines"></i></div></div>`;
+      item.setAttribute("data-index", index);
 
-    listItems.push(item);
-    orderedList.appendChild(item);
-  });
+      item.innerHTML = `<div class="item-container"><span class="number">${
+        index + 1
+      }.</span><div class="draggable" draggable="true"><p class="first-name">${elem}</p><i class="fa-solid fa-grip-lines"></i></div></div>`;
+
+      listItems.push(item);
+      orderedList.appendChild(item);
+    });
 }
 
 createList();
